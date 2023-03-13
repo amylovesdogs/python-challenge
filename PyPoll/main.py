@@ -5,6 +5,8 @@ import numpy as np
 import locale
 locale.setlocale(locale.LC_ALL, '')
 
+# Generate an election results report to the output device passed as a parameter.
+# It could be a file or the stdout (the terminal).
 def generate_report(output_dev):
     output_dev.write("Election Results\n------------------------- \n")
     output_dev.write("Total Votes: " + str(votes_cast) + "\n")

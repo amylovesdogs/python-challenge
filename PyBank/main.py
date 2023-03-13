@@ -6,8 +6,9 @@ import locale
 locale.setlocale(locale.LC_ALL, '')
 
 
-# Generate a financial report to the output device given. It could be a file or the stdout (the terminal).
-
+# Generate a financial report to the output device passed as a parameter.
+# It could be a file or the stdout (the terminal).
+# Use the report dictionary passed as a parameter to provide the report data.
 def generate_report(output_dev, report_dict):
     output_dev.write("Financial Analysis\n------------------ \n")
     output_dev.write("Total Months: " + str(report_dict["Total Months"]) + "\n")
