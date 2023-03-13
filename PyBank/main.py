@@ -32,12 +32,6 @@ delta_min = 0
 #loop through the records. Skip the first row of data since there is no "previous" month to calculate from
 for i in range(1,len(bank_df)):
     delta = np.append(delta, (bank_df["Profit/Losses"][i] - bank_df["Profit/Losses"][i-1]))
-    if delta[i] > delta_max:
-        delta_max = delta[i]
-        month_max = bank_df["Date"][i]
-    if delta[i] < delta_min:
-        delta_min = delta[i]
-        month_min = bank_df["Date"][i]
 # add the change array as a column to the dataframe
 bank_df["Monthly Change"] = delta.tolist()
 
@@ -48,6 +42,11 @@ length = len(bank_df["Date"])
 summary["Total Months"] = length
 summary["Total"] = bank_df["Profit/Losses"].sum()
 summary["Average Change"] = bank_df["Monthly Change"].loc[1:length-1].mean()
+# find the monthly change max and min, as well as the month associated with those deltas
+delta_max = bank_df["Monthly Change"].max()
+delta_min = bank_df["Monthly Change"].min()
+month_max = bank_df["Date"][pd.Index(bank_df["Monthly Change"]).get_loc(delta_max)]
+month_min = bank_df["Date"][pd.Index(bank_df["Monthly Change"]).get_loc(delta_min)]
 summary["Max Increase"] = [month_max, delta_max]
 summary["Max Decrease"] = [month_min, delta_min]
 
